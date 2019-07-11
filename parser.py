@@ -8,7 +8,7 @@ import movieData
 
 print("Hello World")
 
-moviePage = 'https://letterboxd.com/film/midsommar/'
+moviePage = 'https://letterboxd.com/film/jurassic-park/'
 
 #Open given movie page
 movieUrl = urlopen(moviePage)
@@ -34,6 +34,7 @@ for credit in creditPages:
     
     print(currentItemTitle)
     movie = movieData.movieData(currentItembs)
-    print(movie.runtime[0])
+    if len(movie.runtime) > 0:
+        print(movie.runtime[0])
     print(movie.watches[0])
     print(movie.rating[0])

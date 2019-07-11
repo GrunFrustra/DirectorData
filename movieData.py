@@ -9,8 +9,11 @@ import re
 class movieData():
     def __init__(self, bs):
         self.runtime = bs.find('p',{'class': 'text-link text-footer'}).text.strip().replace('\xa0', ' ')
-        pattern = re.compile('^.*mins')
-        self.runtime = pattern.findall(self.runtime)
+        if self.runtime == None:
+            self.runtime = 'No runtime'
+        else:
+            pattern = re.compile('^.*mins')
+            self.runtime = pattern.findall(self.runtime)
         
         self.watches = bs.find('li',{'class': 'stat filmstat-watches'})
         self.watches = self.watches.find('a')['title']
@@ -19,6 +22,11 @@ class movieData():
         
         #<meta name="twitter:label2" content="Average rating" /><meta name="twitter:data2" content="3.93 out of 5" />
         self.rating = bs.find('meta',{'name': 'twitter:data2'})
-        self.rating = self.rating['content']
-        pattern3 = re.compile('\d\.\d+')
-        self.rating = pattern3.findall(self.rating)
+        if self.rating == None:
+            self.rating = ['No runtime']
+        else:   
+            self.rating = self.rating['content']
+            pattern3 = re.compile('\d\.\d+')
+            self.rating = pattern3.findall(self.rating)
+
+        
