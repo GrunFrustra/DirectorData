@@ -6,8 +6,13 @@ Created on Wed Jul 10 22:44:33 2019
 """
 import re
 #director = moviebs.find('meta',{'name': 'twitter:data1'})
+#<meta name="twitter:title" content="Thief (1981)" />
 class movieData():
     def __init__(self, bs):
+        self.name = bs.find('meta',{'name': 'twitter:title'})
+        self.name = self.name['content']
+        
+        
         self.runtime = bs.find('p',{'class': 'text-link text-footer'}).text.strip().replace('\xa0', ' ')
         if self.runtime == None:
             self.runtime = 'No runtime'
@@ -23,7 +28,7 @@ class movieData():
         #<meta name="twitter:label2" content="Average rating" /><meta name="twitter:data2" content="3.93 out of 5" />
         self.rating = bs.find('meta',{'name': 'twitter:data2'})
         if self.rating == None:
-            self.rating = ['No runtime']
+            self.rating = ['NULL']
         else:   
             self.rating = self.rating['content']
             pattern3 = re.compile('\d\.\d+')

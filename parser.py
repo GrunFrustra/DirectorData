@@ -4,11 +4,11 @@ from urllib.request import urlopen
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import movieData
-
+import os.path
 
 print("Hello World")
 
-moviePage = 'https://letterboxd.com/film/jurassic-park/'
+moviePage = 'https://letterboxd.com/film/thief/'
 
 #Open given movie page
 movieUrl = urlopen(moviePage)
@@ -25,6 +25,7 @@ director = director['content']
 print("Directed by: {}" .format(director))
 
 creditPages = directorbs.find_all('li',{'class':'poster-container'})
+movieList = []
 for credit in creditPages:
     currentItem = credit.find('div')
     currentItemTitle = currentItem['data-film-name']
@@ -36,5 +37,15 @@ for credit in creditPages:
     movie = movieData.movieData(currentItembs)
     if len(movie.runtime) > 0:
         print(movie.runtime[0])
-    print(movie.watches[0])
-    print(movie.rating[0])
+    print(movie.watches[0] + ' Watches')
+    print(movie.rating[0] + ' out of 5')
+    movieList.append(movie)
+
+f = open('./Directors/' + director + '.txt', 'w')
+f.write("Directed by: {}\n" .format(director))
+for x in movieList:
+    f.write(x.name + '\n')
+    f.write(x.watches[0] + ' Watches\n')
+    f.write(x.rating[0] + ' out of 5\n\n')
+f.close()
+        
