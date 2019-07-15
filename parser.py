@@ -37,12 +37,14 @@ for credit in creditPages:
     movie = movieData.movieData(currentItembs)
     if movie.rating is not None:
         print(currentItemTitle)
+        if movie.year is not None:
+            print(movie.year)
         if len(movie.runtime) > 0:
             print(movie.runtime[0])
         print(movie.watches[0] + ' Watches')
         print(movie.rating[0] + ' out of 5\n')
         movieList.append(movie)
-#        sleep(3)
+        sleep(2)
 
 f = open('./Directors/' + director + '.txt', 'w')
 f.write("Directed by: {}\n" .format(director))

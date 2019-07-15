@@ -34,5 +34,9 @@ class movieData():
             self.rating = self.rating['content']
             pattern3 = re.compile('\d\.\d+')
             self.rating = pattern3.findall(self.rating)
+            
+        self.year = bs.find('a',{'href': re.compile('^\/films\/year')})
+        if self.year is not None:
+            self.year = self.year.text
 
         
