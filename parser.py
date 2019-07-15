@@ -5,10 +5,11 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import movieData
 import os.path
+from time import sleep
 
 print("Hello World")
 
-moviePage = 'https://letterboxd.com/film/thief/'
+moviePage = input("LetterboxD Url: ")
 
 #Open given movie page
 movieUrl = urlopen(moviePage)
@@ -33,13 +34,15 @@ for credit in creditPages:
     currentItemUrl = urlopen(currentItemPage)
     currentItembs = BeautifulSoup(currentItemUrl, 'html.parser')
     
-    print(currentItemTitle)
     movie = movieData.movieData(currentItembs)
-    if len(movie.runtime) > 0:
-        print(movie.runtime[0])
-    print(movie.watches[0] + ' Watches')
-    print(movie.rating[0] + ' out of 5')
-    movieList.append(movie)
+    if movie.rating is not None and int(movie.runtime[0]) >= 45:
+        print(currentItemTitle)
+        if len(movie.runtime) > 0:
+            print(movie.runtime[0])
+        print(movie.watches[0] + ' Watches')
+        print(movie.rating[0] + ' out of 5\n')
+        movieList.append(movie)
+        sleep(3)
 
 f = open('./Directors/' + director + '.txt', 'w')
 f.write("Directed by: {}\n" .format(director))
