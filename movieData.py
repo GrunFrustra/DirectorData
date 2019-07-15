@@ -28,7 +28,8 @@ class movieData():
         #<meta name="twitter:label2" content="Average rating" /><meta name="twitter:data2" content="3.93 out of 5" />
         self.rating = bs.find('meta',{'name': 'twitter:data2'})
         if self.rating == None:
-            self.rating = ['NULL']
+            pass
+            #self.rating = ['NULL']
         else:   
             self.rating = self.rating['content']
             pattern3 = re.compile('\d\.\d+')

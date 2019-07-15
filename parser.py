@@ -35,14 +35,14 @@ for credit in creditPages:
     currentItembs = BeautifulSoup(currentItemUrl, 'html.parser')
     
     movie = movieData.movieData(currentItembs)
-    if movie.rating is not None and int(movie.runtime[0]) >= 45:
+    if movie.rating is not None:
         print(currentItemTitle)
         if len(movie.runtime) > 0:
             print(movie.runtime[0])
         print(movie.watches[0] + ' Watches')
         print(movie.rating[0] + ' out of 5\n')
         movieList.append(movie)
-        sleep(3)
+#        sleep(3)
 
 f = open('./Directors/' + director + '.txt', 'w')
 f.write("Directed by: {}\n" .format(director))
